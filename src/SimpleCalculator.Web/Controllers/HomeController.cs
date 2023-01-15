@@ -1,4 +1,5 @@
 ﻿using System.Diagnostics;
+using AutoMapper;
 using SimpleCalculator.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using SimpleCalculator.Web.Models;
@@ -19,13 +20,38 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        return View();
+        var e = _context.CalculationResultEntities.ToList();
+
+        var pModel = new CalculationPageModel()
+        {
+            Input = new CalculationInputModel(),
+            Result = new List<CalculationEntityModel>(),
+        };
+
+        
+        foreach (var entity in e)
+        {
+            var entities = new List<CalculationEntityModel>
+        {
+            new CalculationEntityModel
+            {
+                Id = entity.Id,
+                MathOperator = entity.MathOperator,
+                FirstNumber = entity.FirstNumber,
+                SecondNumber = entity.SecondNumber,
+                Result = entity.Result,
+            }
+        };
+        }
+
+        return View(pModel);
     }
 
     [HttpPost]
     public IActionResult Add(CalculationInputModel model)
     {
         _service.Add(model);
+        _service.AddToDb(model);
         _service.Save();
         return View("Index", model);
     }
@@ -34,6 +60,7 @@ public class HomeController : Controller
     public IActionResult Subtract(CalculationInputModel model)
     {
         _service.Subtract(model);
+        _service.AddToDb(model);
         _service.Save();
         return View("Index", model);
     }
@@ -42,6 +69,7 @@ public class HomeController : Controller
     public IActionResult Multiply(CalculationInputModel model)
     {
         _service.Multiply(model);
+        _service.AddToDb(model);
         _service.Save();
         return View("Index", model);
     }
@@ -56,17 +84,12 @@ public class HomeController : Controller
         else
         {
             _service.Divide(model);
+            _service.AddToDb(model);
             _service.Save();
         }
         return View("Index", model);
     }
 
-    public IActionResult ResultsPartial()
-    {
-        var results = _context.CalculationResultEntities.ToList();
-        return PartialView("_CalculationResults", results);
-    }
-    
     public IActionResult Privacy()
     {
         return View();

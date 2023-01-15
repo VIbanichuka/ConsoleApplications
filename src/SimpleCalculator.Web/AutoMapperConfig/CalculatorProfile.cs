@@ -8,5 +8,6 @@ public class CalculatorProfile: Profile
     public CalculatorProfile()
     {
         CreateMap<CalculationResultEntity, CalculationInputModel>().ReverseMap();
+        CreateMap<CalculationResultEntity, CalculationEntityModel>().ReverseMap();
     }
 }

@@ -1,4 +1,4 @@
-@model List<SimpleCalculator.DataAccess.Model.CalculationResultEntity>
+@model List<CalculationEntityModel>
 
 <h3>Calculation Results</h3>
 
@@ -27,23 +27,23 @@
     <tbody>
         @if (Model != null)
         {
-            @foreach (var results in Model)
+            @foreach (var entity in Model)
             {
                 <tr>
                     <td>
-                        @results.Id
+                        @entity.Id
                     </td>
                     <td>
-                        @results.MathOperator
+                        @entity.MathOperator
                     </td>
                     <td>
-                        @results.FirstNumber
+                        @entity.FirstNumber
                     </td>
                     <td>
-                        @results.SecondNumber
+                        @entity.SecondNumber
                     </td>
                     <td>
-                        @results.Result
+                        @entity.Result
                     </td>
                 </tr>
             }

@@ -25,38 +25,34 @@ public class CalculationService : ICalculationService<CalculationInputModel>
         _multiplication = multiplication;
         _subtraction = subtraction;
     }
-    public void Add(CalculationInputModel model)
+    public double Add(CalculationInputModel model)
     {
-        model.Result = _addition.Add(model.FirstNumber, model.SecondNumber);
-        var entities = _mapper.Map<CalculationResultEntity>(model);
-        entities.MathOperator = "+";
-        _context.CalculationResultEntities.Add(entities);
+        return model.Result = _addition.Add(model.FirstNumber, model.SecondNumber);
     }
 
-    public void Divide(CalculationInputModel model)
+    public double Divide(CalculationInputModel model)
     {
-        model.Result = _division.Divide(model.FirstNumber, model.SecondNumber);
-        var entities = _mapper.Map<CalculationResultEntity>(model);
-        entities.MathOperator = "/";
-        _context.CalculationResultEntities.Add(entities);
+        return model.Result = _division.Divide(model.FirstNumber, model.SecondNumber);
     }
 
-    public void Multiply(CalculationInputModel model)
+    public double Multiply(CalculationInputModel model)
     {
-        model.Result = _multiplication.Multiply(model.FirstNumber, model.SecondNumber);
-        var entities = _mapper.Map<CalculationResultEntity>(model);
-        entities.MathOperator = "*";
-        _context.CalculationResultEntities.Add(entities);
+        return model.Result = _multiplication.Multiply(model.FirstNumber, model.SecondNumber);
     }
 
-    public void Subtract(CalculationInputModel model)
+    public double Subtract(CalculationInputModel model)
     {
-        model.Result = _subtraction.Subtract(model.FirstNumber, model.SecondNumber);
         var entities = _mapper.Map<CalculationResultEntity>(model);
-        entities.MathOperator = "-";
-        _context.CalculationResultEntities.Add(entities);
+        entities.MathOperator ="-";
+        return model.Result = _subtraction.Subtract(model.FirstNumber, model.SecondNumber);
     }
     
+    public void AddToDb(CalculationInputModel model)
+    {
+        var entities = _mapper.Map<CalculationResultEntity>(model);
+        _context.Add(entities);
+    }
+
     public void Save()
     {
         _context.SaveChanges();
