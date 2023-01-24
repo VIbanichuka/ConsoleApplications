@@ -27,34 +27,37 @@ public class CalculationService : ICalculationService<CalculationInputModel>
     }
     public double Add(CalculationInputModel model)
     {
-        return model.Result = _addition.Add(model.FirstNumber, model.SecondNumber);
+        var result = model.Result = _addition.Add(model.FirstNumber, model.SecondNumber);
+        AddToDb(model, "+");
+        return result;
     }
 
     public double Divide(CalculationInputModel model)
     {
-        return model.Result = _division.Divide(model.FirstNumber, model.SecondNumber);
+        var result = model.Result = _division.Divide(model.FirstNumber, model.SecondNumber);
+        AddToDb(model, "/");
+        return result;
     }
 
     public double Multiply(CalculationInputModel model)
     {
-        return model.Result = _multiplication.Multiply(model.FirstNumber, model.SecondNumber);
+        var result = model.Result = _multiplication.Multiply(model.FirstNumber, model.SecondNumber);
+        AddToDb(model, "*");
+        return result;
     }
 
     public double Subtract(CalculationInputModel model)
     {
-        var entities = _mapper.Map<CalculationResultEntity>(model);
-        entities.MathOperator ="-";
-        return model.Result = _subtraction.Subtract(model.FirstNumber, model.SecondNumber);
-    }
-    
-    public void AddToDb(CalculationInputModel model)
-    {
-        var entities = _mapper.Map<CalculationResultEntity>(model);
-        _context.Add(entities);
+        var result = model.Result = _subtraction.Subtract(model.FirstNumber, model.SecondNumber);
+        AddToDb(model, "-");
+        return result;
     }
 
-    public void Save()
+    public void AddToDb(CalculationInputModel model, string mathOperator)
     {
+        var entities = _mapper.Map<CalculationResultEntity>(model);
+        entities.MathOperator = mathOperator;
+        _context.Add(entities);
         _context.SaveChanges();
     }
 }

@@ -13,6 +13,7 @@ builder.Services.AddScoped<IAddition, Addition>();
 builder.Services.AddScoped<IDivision, Division>();
 builder.Services.AddScoped<IMultiplication, Multiplication>();
 builder.Services.AddScoped<ISubtraction, Subtraction>();
+builder.Services.AddScoped<IDatabaseService<CalculationPageModel>, DatabaseService>();
 builder.Services.AddScoped<ICalculationService<CalculationInputModel>, CalculationService>();
 builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddDbContext<CalculatorDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("CalculatorConnectionString")));
