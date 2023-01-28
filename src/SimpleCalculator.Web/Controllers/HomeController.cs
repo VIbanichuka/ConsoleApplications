@@ -3,6 +3,7 @@ using SimpleCalculator.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using SimpleCalculator.Web.Models;
 using SimpleCalculator.DataAccess.Data;
+using X.PagedList;
 
 namespace SimpleCalculator.Web.Controllers;
 
@@ -68,6 +69,30 @@ public class HomeController : Controller
     public IActionResult Privacy()
     {
         return View();
+    }
+
+    public IActionResult CalculationResults(int? page)
+    {
+        var pageNumber = page ?? 1;
+        int pageSize = 6;
+        var calcResultPageEntities = _context.CalculationResultEntities.ToList();
+        var calcResults = new List<CalculationEntityModel>();
+        if (calcResultPageEntities != null)
+        {
+            foreach (var calcResultPageEntity in calcResultPageEntities)
+            {
+                var calResultPageModel = new CalculationEntityModel()
+                {
+                    Id = calcResultPageEntity.Id,
+                    MathOperator = calcResultPageEntity.MathOperator,
+                    FirstNumber = calcResultPageEntity.FirstNumber,
+                    SecondNumber = calcResultPageEntity.SecondNumber,
+                    Result = calcResultPageEntity.Result
+                };
+                calcResults.Add(calResultPageModel);
+            }
+        }
+        return View(calcResults.ToPagedList(pageNumber, pageSize));
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -1,0 +1,64 @@
+@using X.PagedList;
+@using X.PagedList.Mvc.Core;
+
+@model IPagedList<CalculationEntityModel>
+
+<link href="/css/PagedList.css" rel="stylesheet" type="text/css" />
+
+<h2>Simple Calculator</h2>
+<br />
+<h4>Calculation Results</h4>
+
+<hr />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Math Operator
+            </th>
+            <th>
+                First Number
+            </th>
+            <th>
+                Second Number
+            </th>
+            <th>
+                Result
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var entity in Model)
+            {
+                <tr>
+                    <td>
+                        @entity.Id
+                    </td>
+                    <td>
+                        @entity.MathOperator
+                    </td>
+                    <td>
+                        @entity.FirstNumber
+                    </td>
+                    <td>
+                        @entity.SecondNumber
+                    </td>
+                    <td>
+                        @entity.Result
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+<br />
+Page @(Model?.PageCount < Model?.PageNumber ? 0 : Model?.PageNumber) of @Model?.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("CalculationResults", new{ page}))

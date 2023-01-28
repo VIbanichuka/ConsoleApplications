@@ -1,4 +1,5 @@
 using SimpleCalculator.Web.Services.Interfaces;
+using System.Linq;
 using SimpleCalculator.DataAccess.Data;
 using SimpleCalculator.Web.Models;
 namespace SimpleCalculator.Web.Services;
@@ -12,7 +13,13 @@ public class DatabaseService : IDatabaseService<CalculationPageModel>
     }
     public void GetCalculationResult(CalculationPageModel model)
     {
-        var calculationResultEntities = _context.CalculationResultEntities.ToList();
+        var calculationResultQuery = 
+            (from calculationResultEntity in _context.CalculationResultEntities
+            orderby calculationResultEntity.Id descending
+            select calculationResultEntity)
+            .Take(5);
+
+        var calculationResultEntities = calculationResultQuery.ToList();
         model.Result = new List<CalculationEntityModel>();
 
         if (calculationResultEntities != null)
