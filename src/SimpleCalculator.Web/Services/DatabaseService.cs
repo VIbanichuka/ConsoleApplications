@@ -1,15 +1,18 @@
 using SimpleCalculator.Web.Services.Interfaces;
 using System.Linq;
+using AutoMapper;
 using SimpleCalculator.DataAccess.Data;
 using SimpleCalculator.Web.Models;
 namespace SimpleCalculator.Web.Services;
 
 public class DatabaseService : IDatabaseService<CalculationPageModel>
 {
+    private readonly IMapper _mapper;
     private readonly CalculatorDbContext _context;
-    public DatabaseService(CalculatorDbContext context)
+    public DatabaseService(CalculatorDbContext context, IMapper mapper)
     {
         _context = context;
+        _mapper = mapper;
     }
     public void GetCalculationResult(CalculationPageModel model)
     {
@@ -20,22 +23,6 @@ public class DatabaseService : IDatabaseService<CalculationPageModel>
             .Take(5);
 
         var calculationResultEntities = calculationResultQuery.ToList();
-        model.Result = new List<CalculationEntityModel>();
-
-        if (calculationResultEntities != null)
-        {
-            foreach (var entity in calculationResultEntities)
-            {
-                var entityModel = new CalculationEntityModel()
-                {
-                    Id = entity.Id,
-                    MathOperator = entity.MathOperator,
-                    FirstNumber = entity.FirstNumber,
-                    SecondNumber = entity.SecondNumber,
-                    Result = entity.Result
-                };
-                model.Result.Add(entityModel);
-            }
-        }
+        model.Result = _mapper.Map<List<CalculationEntityModel>>(calculationResultEntities);
     }
 }

@@ -3,6 +3,7 @@ using SimpleCalculator.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using SimpleCalculator.Web.Models;
 using SimpleCalculator.DataAccess.Data;
+using AutoMapper;
 using X.PagedList;
 
 namespace SimpleCalculator.Web.Controllers;
@@ -12,12 +13,13 @@ public class HomeController : Controller
     private readonly ICalculationService<CalculationInputModel> _service;
     private readonly IDatabaseService<CalculationPageModel> _dataService;
     private readonly CalculatorDbContext _context;
-
-    public HomeController(ICalculationService<CalculationInputModel> service, IDatabaseService<CalculationPageModel> dataService, CalculatorDbContext context)
+    private readonly IMapper _mapper;
+    public HomeController(ICalculationService<CalculationInputModel> service, IMapper mapper, IDatabaseService<CalculationPageModel> dataService, CalculatorDbContext context)
     {
         _dataService = dataService;
         _service = service;
         _context = context;
+        _mapper = mapper;
     }
 
     public IActionResult Index(CalculationPageModel model)
@@ -75,24 +77,11 @@ public class HomeController : Controller
     {
         var pageNumber = page ?? 1;
         int pageSize = 6;
+
         var calcResultPageEntities = _context.CalculationResultEntities.ToList();
-        var calcResults = new List<CalculationEntityModel>();
-        if (calcResultPageEntities != null)
-        {
-            foreach (var calcResultPageEntity in calcResultPageEntities)
-            {
-                var calResultPageModel = new CalculationEntityModel()
-                {
-                    Id = calcResultPageEntity.Id,
-                    MathOperator = calcResultPageEntity.MathOperator,
-                    FirstNumber = calcResultPageEntity.FirstNumber,
-                    SecondNumber = calcResultPageEntity.SecondNumber,
-                    Result = calcResultPageEntity.Result
-                };
-                calcResults.Add(calResultPageModel);
-            }
-        }
-        return View(calcResults.ToPagedList(pageNumber, pageSize));
+        var calcResultEntityModels = _mapper.Map<List<CalculationEntityModel>>(calcResultPageEntities);
+
+        return View(calcResultEntityModels.ToPagedList(pageNumber, pageSize));
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
