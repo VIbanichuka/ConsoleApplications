@@ -1,5 +1,4 @@
 using SimpleCalculator.Web.Services.Interfaces;
-using System.Linq;
 using AutoMapper;
 using SimpleCalculator.DataAccess.Data;
 using SimpleCalculator.Web.Models;
@@ -16,13 +15,10 @@ public class DatabaseService : IDatabaseService<CalculationPageModel>
     }
     public void GetCalculationResult(CalculationPageModel model)
     {
-        var calculationResultQuery = 
-            (from calculationResultEntity in _context.CalculationResultEntities
-            orderby calculationResultEntity.Id descending
-            select calculationResultEntity)
-            .Take(5);
-
-        var calculationResultEntities = calculationResultQuery.ToList();
-        model.Result = _mapper.Map<List<CalculationEntityModel>>(calculationResultEntities);
+        var calculationResultQuery = _context.CalculationResultEntities
+            .OrderByDescending(calcResult => calcResult.Id)
+            .Take(5)
+            .ToList();
+        model.Result = _mapper.Map<List<CalculationEntityModel>>(calculationResultQuery);
     }
 }
