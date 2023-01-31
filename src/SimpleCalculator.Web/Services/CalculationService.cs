@@ -25,35 +25,35 @@ public class CalculationService : ICalculationService<CalculationInputModel>
         _multiplication = multiplication;
         _subtraction = subtraction;
     }
-    public double Add(CalculationInputModel model)
+    public double AddService(CalculationInputModel model)
     {
         var result = model.Result = _addition.Add(model.FirstNumber, model.SecondNumber);
-        AddToDb(model, "+");
+        AddToDbService(model, "+");
         return result;
     }
 
-    public double Divide(CalculationInputModel model)
+    public double DivideService(CalculationInputModel model)
     {
         var result = model.Result = _division.Divide(model.FirstNumber, model.SecondNumber);
-        AddToDb(model, "/");
+        AddToDbService(model, "/");
         return result;
     }
 
-    public double Multiply(CalculationInputModel model)
+    public double MultiplyService(CalculationInputModel model)
     {
         var result = model.Result = _multiplication.Multiply(model.FirstNumber, model.SecondNumber);
-        AddToDb(model, "*");
+        AddToDbService(model, "*");
         return result;
     }
 
-    public double Subtract(CalculationInputModel model)
+    public double SubtractService(CalculationInputModel model)
     {
         var result = model.Result = _subtraction.Subtract(model.FirstNumber, model.SecondNumber);
-        AddToDb(model, "-");
+        AddToDbService(model, "-");
         return result;
     }
 
-    public void AddToDb(CalculationInputModel model, string mathOperator)
+    public void AddToDbService(CalculationInputModel model, string mathOperator)
     {
         var entities = _mapper.Map<CalculationResultEntity>(model);
         entities.MathOperator = mathOperator;

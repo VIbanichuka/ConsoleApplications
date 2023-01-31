@@ -2,9 +2,9 @@ namespace SimpleCalculator.Web.Services.Interfaces;
 
 public interface ICalculationService<T>
 {
-    double Multiply(T model);
-    double Add(T model);
-    double Subtract(T model);
-    double Divide(T model);
-    void AddToDb(T model, string mathOperator);
+    double MultiplyService(T model);
+    double AddService(T model);
+    double SubtractService(T model);
+    double DivideService(T model);
+    void AddToDbService(T model, string mathOperator);
 }

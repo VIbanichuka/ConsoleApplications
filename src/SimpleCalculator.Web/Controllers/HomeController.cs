@@ -32,7 +32,7 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult Add(CalculationPageModel model)
     {
-        _service.Add(model.Input);
+        _service.AddService(model.Input);
         _dataService.GetCalculationResult(model);
         return View("Index", model);
     }
@@ -40,7 +40,7 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult Subtract(CalculationPageModel model)
     {
-        _service.Subtract(model.Input);
+        _service.SubtractService(model.Input);
         _dataService.GetCalculationResult(model);
         return View("Index", model);
     }
@@ -48,7 +48,7 @@ public class HomeController : Controller
     [HttpPost]
     public IActionResult Multiply(CalculationPageModel model)
     {
-        _service.Multiply(model.Input);
+        _service.MultiplyService(model.Input);
         _dataService.GetCalculationResult(model);
         return View("Index", model);
     }
@@ -62,7 +62,7 @@ public class HomeController : Controller
         }
         else
         {
-            _service.Divide(model.Input);
+            _service.DivideService(model.Input);
         }
         _dataService.GetCalculationResult(model);
         return View("Index", model);
