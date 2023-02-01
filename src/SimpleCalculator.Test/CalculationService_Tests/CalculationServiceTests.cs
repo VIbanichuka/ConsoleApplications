@@ -14,7 +14,7 @@ public class CalculationServiceTests
         addServiceStub.Setup(x => x.Add(40, 5)).Returns(45);
         var calculationService = new CalculationService(null, null, null, addServiceStub.Object, null, null);
 
-        var expected = calculationService.Add(calculationInputModel);
+        var expected = calculationService.AddService(calculationInputModel);
 
         addServiceStub.VerifyAll();
     }
@@ -27,7 +27,7 @@ public class CalculationServiceTests
         multiplicationStub.Setup(x => x.Multiply(5, 2)).Returns(10);
         var calculationService = new CalculationService(multiplicationStub.Object, null, null, null, null, null);
 
-        var actual = calculationService.Multiply(calculationInputModel);
+        var actual = calculationService.MultiplyService(calculationInputModel);
 
         Assert.Equal(10, actual);
     }
@@ -40,7 +40,7 @@ public class CalculationServiceTests
         divisionStub.Setup(x => x.Divide(12, 3)).Returns(4);
         var calculationService = new CalculationService(null, divisionStub.Object, null, null, null, null);
 
-        var actual = calculationService.Divide(calculationInputModel);
+        var actual = calculationService.DivideService(calculationInputModel);
 
         Assert.Equal(4, actual);
     }
@@ -53,7 +53,7 @@ public class CalculationServiceTests
         subtractionStub.Setup(x => x.Subtract(3, 1)).Returns(2);
         var calculationService = new CalculationService(null, null, subtractionStub.Object, null, null, null);
 
-        var actual = calculationService.Subtract(calculationInputModel);
+        var actual = calculationService.SubtractService(calculationInputModel);
 
         Assert.Equal(2, actual);
     }

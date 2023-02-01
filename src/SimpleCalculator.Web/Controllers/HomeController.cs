@@ -24,7 +24,6 @@ public class HomeController : Controller
 
     public IActionResult Index(CalculationPageModel model)
     {
-        model.Input = new CalculationInputModel();
         _dataService.GetCalculationResult(model);
         return View(model);
     }
