@@ -7,7 +7,7 @@ namespace SimpleCalculator.Test.MockTest;
 public class CalculationServiceTests
 {
     [Fact]
-    public void Add_Returns_AdditionOfTwoNumbers()
+    public void Add_Returns_AdditionOfTwoNumbers_Saves()
     {
         var calculationInputModel = new CalculationInputModel() { FirstNumber = 40, SecondNumber = 5, Result = 9 };
         var addServiceStub = new Mock<IAddition>();
@@ -24,11 +24,13 @@ public class CalculationServiceTests
     {
         var calculationInputModel = new CalculationInputModel() { FirstNumber = 5, SecondNumber = 2, Result = 10 };
         var multiplicationStub = new Mock<IMultiplication>();
+        var passedEnum = MathOperatorEnum.Multiply;
         multiplicationStub.Setup(x => x.Multiply(5, 2)).Returns(10);
+
         var calculationService = new CalculationService(multiplicationStub.Object, null, null, null, null, null);
-
+        
         var actual = calculationService.MultiplyService(calculationInputModel);
-
+        calculationService.AddToDbService(calculationInputModel, passedEnum);
         Assert.Equal(10, actual);
     }
 
