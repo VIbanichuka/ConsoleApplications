@@ -1,8 +1,6 @@
 ﻿@model CalculationInputModel
-@{
-    ViewData["Title"] = "Simple Calculator";
-}
-<h2>@ViewData["Title"]</h2>
+
+<h2>Simple Calculator</h2>
 
 <form method="post">
     <div asp-validation-summary="ModelOnly"></div>
@@ -27,6 +25,15 @@
     <button type="submit" class="btn btn-danger" asp-controller="Home" asp-action="Index">C</button>
 </form>
 
-@section Scripts {
+<p>
+<div id="partialZone">
+
+</div>
+</p>
+@section Scripts{
+    <script>
+        $('#partialZone').load("/Home/ResultsPartial")
+    </script>
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -61,6 +61,12 @@ public class HomeController : Controller
         return View("Index", model);
     }
 
+    public IActionResult ResultsPartial()
+    {
+        var results = _context.CalculationResultEntities.ToList();
+        return PartialView("_CalculationResults", results);
+    }
+    
     public IActionResult Privacy()
     {
         return View();

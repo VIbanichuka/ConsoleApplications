@@ -1,0 +1,52 @@
+@model List<SimpleCalculator.DataAccess.Model.CalculationResultEntity>
+
+<h3>Calculation Results</h3>
+
+<hr />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Id
+            </th>
+            <th>
+                Math Operator
+            </th>
+            <th>
+                First Number
+            </th>
+            <th>
+                Second Number
+            </th>
+            <th>
+                Result
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null)
+        {
+            @foreach (var results in Model)
+            {
+                <tr>
+                    <td>
+                        @results.Id
+                    </td>
+                    <td>
+                        @results.MathOperator
+                    </td>
+                    <td>
+                        @results.FirstNumber
+                    </td>
+                    <td>
+                        @results.SecondNumber
+                    </td>
+                    <td>
+                        @results.Result
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
