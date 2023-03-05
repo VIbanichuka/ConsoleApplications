@@ -3,7 +3,7 @@ using SimpleCalculator.DataAccess.Model;
 using SimpleCalculator.Web.Models;
 namespace SimpleCalculator.Web.AutoMapperConfig;
 
-public class CalculatorProfile: Profile
+public class CalculatorProfile : Profile
 {
     public CalculatorProfile()
     {

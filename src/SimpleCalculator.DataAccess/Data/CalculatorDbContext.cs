@@ -8,6 +8,8 @@ public class CalculatorDbContext : DbContext
     {
 
     }
-    public DbSet<CalculationResultEntity> CalculationResultEntities { get; set; }
+
+    public CalculatorDbContext() { }
+    public virtual DbSet<CalculationResultEntity> CalculationResultEntities { get; set; }
 }
 

@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using SimpleCalculator.Web.Models;
 using SimpleCalculator.DataAccess.Data;
 using AutoMapper;
-using X.PagedList;
 
 namespace SimpleCalculator.Web.Controllers;
 
@@ -72,15 +71,9 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult CalculationResults(int? page)
+    public IActionResult CalculationResults()
     {
-        var pageNumber = page ?? 1;
-        int pageSize = 6;
-
-        var calcResultPageEntities = _context.CalculationResultEntities.ToList();
-        var calcResultEntityModels = _mapper.Map<List<CalculationEntityModel>>(calcResultPageEntities);
-
-        return View(calcResultEntityModels.ToPagedList(pageNumber, pageSize));
+        return View();
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
