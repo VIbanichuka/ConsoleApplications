@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
@@ -10,6 +10,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCalculator.Web", "SimpleCalculator.Web\SimpleCalculator.Web.csproj", "{A3C027D0-5F59-440D-9BD2-C7968D586AE3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCalculator.Test", "SimpleCalculator.Test\SimpleCalculator.Test.csproj", "{AC780F48-7415-40B8-9202-A810FF362CCF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleCalculator.DataAccess", "SimpleCalculator.DataAccess\SimpleCalculator.DataAccess.csproj", "{2CFB7CD5-FED8-4DB9-88C8-0EA74EE98ABF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,5 +38,9 @@ Global
 		{AC780F48-7415-40B8-9202-A810FF362CCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC780F48-7415-40B8-9202-A810FF362CCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC780F48-7415-40B8-9202-A810FF362CCF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CFB7CD5-FED8-4DB9-88C8-0EA74EE98ABF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CFB7CD5-FED8-4DB9-88C8-0EA74EE98ABF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CFB7CD5-FED8-4DB9-88C8-0EA74EE98ABF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CFB7CD5-FED8-4DB9-88C8-0EA74EE98ABF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
