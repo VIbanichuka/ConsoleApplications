@@ -2,7 +2,7 @@
 
 This SimpleCalculator application features:
 - [**SimpleCalculator.Web**](src/SimpleCalculator.Web/) - An ASP.NET Core web application
-- [**SimpleCalculator.Console**](src/SimpleCalculator.Console/)- An ASP.NET console application
+- [**SimpleCalculator.Console**](src/SimpleCalculator.Console/) - An ASP.NET console application
 
 The application is separated into 3 layers: 
 - The business logic layer [**Calculations**](src/Calculations/)
@@ -17,7 +17,7 @@ The web application showcases:
 - Using EntityFramework core and Microsoft SQL Server
 - LINQ
 - Client-side requests paging using JavaScript Ajax Call
-- Unit tests for the Services 
+- Unit tests for the Services using xUnit and Moq
 
 ## Prerequisites
 
