@@ -1,8 +1,8 @@
 ## A Simple Calculator application with ASP.NET Core
 
 This SimpleCalculator application features:
-- [**SimpleCalculator.Web**](SimpleCalculator.Web) - An ASP.NET Core web application
-- [**SimpleCalculator.Console**](SimpleCalculator.Console)- An ASP.NET console application
+- [**SimpleCalculator.Web**](src/SimpleCalculator.Web/) - An ASP.NET Core web application
+- [**SimpleCalculator.Console**](src/SimpleCalculator.Console/)- An ASP.NET console application
 
 The application is separated into 3 layers: 
 - The business logic layer [**Calculations**](src/Calculations/)
@@ -50,13 +50,13 @@ The web application showcases:
 
     This will run the web application. Navigate the web application - **Home** - **Privacy** - **Results**
 
-<img width="590" alt="Screenshot 2023-03-05 151255" src="https://user-images.githubusercontent.com/94909597/222975517-dce24248-9011-4188-87f2-ef22ba978cda.png">
+<img width="900" alt="Screenshot 2023-03-05 151255" src="https://user-images.githubusercontent.com/94909597/222975517-dce24248-9011-4188-87f2-ef22ba978cda.png">
 
 - The webpage **Home** displays the calculator's UI for calculation operations and some filtered data from Microsoft SQL server as shown above:
     - ASP.NET Core MVC
     - LINQ retrieves data from the data source as well as order and filter the data
 
-<img width="590" alt="Screenshot 2023-03-05 154443" src="https://user-images.githubusercontent.com/94909597/222976444-13fc53ce-b140-4982-b91c-01ec504dc27e.png">
+<img width="900" alt="Screenshot 2023-03-05 154443" src="https://user-images.githubusercontent.com/94909597/222976444-13fc53ce-b140-4982-b91c-01ec504dc27e.png">
 
 - The webpage **Results** displays filtered calculation results from Microsoft SQL server and a pagination panel as shown above:
     - ASP.NET Core Web API and JavaScript Ajax Call retrieves data and display paging
@@ -67,4 +67,4 @@ The web application showcases:
 ### Using the API standalone
 The SimpleCalculator Web API controller can run standalone as well. You can run it and make requests to various endpoints using any client of your choice:
 
-<img width="590" alt="Screenshot 2023-03-05 175617" src="https://user-images.githubusercontent.com/94909597/222977495-e083c28f-7b1c-4d3a-b9d4-0acc01f90020.png">
+<img width="900" alt="Screenshot 2023-03-05 175617" src="https://user-images.githubusercontent.com/94909597/222977495-e083c28f-7b1c-4d3a-b9d4-0acc01f90020.png">
