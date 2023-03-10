@@ -1,23 +1,21 @@
-﻿@model CalculationInputModel
-@{
-    ViewData["Title"] = "Simple Calculator";
-}
-<h2>@ViewData["Title"]</h2>
+﻿@model CalculationPageModel
+
+<h2>Simple Calculator</h2>
 
 <form method="post">
     <div asp-validation-summary="ModelOnly"></div>
 
-    <label asp-for="FirstNumber"></label>
-    <input type="number" asp-for="FirstNumber" /> <br />
-    <span asp-validation-for="FirstNumber" class="text-danger"></span><br />
+    <label asp-for="Input.FirstNumber"></label>
+    <input type="number" asp-for="Input.FirstNumber" /> <br />
+    <span asp-validation-for="Input.FirstNumber" class="text-danger"></span><br />
 
-    <label asp-for="SecondNumber"></label>
-    <input type="number" asp-for="SecondNumber" /> <br />
-    <span asp-validation-for="SecondNumber" class="text-danger"></span><br />
+    <label asp-for="Input.SecondNumber"></label>
+    <input type="number" asp-for="Input.SecondNumber" /> <br />
+    <span asp-validation-for="Input.SecondNumber" class="text-danger"></span><br />
 
     <p>
-        <label asp-for="Result"></label>
-        <span asp-for="Result">@Model?.Result</span>
+        <label asp-for="Input.Result"></label>
+        <span asp-for="Input.Result">@Model?.Input.Result</span>
     </p>
 
     <button type="submit" class="btn btn-primary" asp-controller="Home" asp-action="Add">+</button>
@@ -27,6 +25,12 @@
     <button type="submit" class="btn btn-danger" asp-controller="Home" asp-action="Index">C</button>
 </form>
 
-@section Scripts {
+<p>
+@{
+    Html.RenderPartial("_CalculationResults", Model?.Result);
+}
+<p>
+
+@section Scripts{
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

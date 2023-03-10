@@ -1,66 +1,77 @@
 ﻿using System.Diagnostics;
+using SimpleCalculator.Web.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using SimpleCalculator.Web.Models;
-using Calculations;
+using SimpleCalculator.DataAccess.Data;
+using AutoMapper;
 
 namespace SimpleCalculator.Web.Controllers;
 
 public class HomeController : Controller
 {
-    private readonly IAddition _addition;
-    private readonly ISubtraction _subtraction;
-    private readonly IMultiplication _multiplication;
-    private readonly IDivision _division;
-
-    public HomeController(IAddition addition, ISubtraction subtraction, IMultiplication multiplication, IDivision division)
+    private readonly ICalculationService<CalculationInputModel> _service;
+    private readonly IDatabaseService<CalculationPageModel> _dataService;
+    private readonly CalculatorDbContext _context;
+    private readonly IMapper _mapper;
+    public HomeController(ICalculationService<CalculationInputModel> service, IMapper mapper, IDatabaseService<CalculationPageModel> dataService, CalculatorDbContext context)
     {
-        _addition = addition;
-        _subtraction = subtraction;
-        _multiplication = multiplication;
-        _division = division;
+        _dataService = dataService;
+        _service = service;
+        _context = context;
+        _mapper = mapper;
     }
 
-    public IActionResult Index()
+    public IActionResult Index(CalculationPageModel model)
     {
-        return View();
+        _dataService.GetCalculationResult(model);
+        return View(model);
     }
 
     [HttpPost]
-    public IActionResult Add(CalculationInputModel model)
+    public IActionResult Add(CalculationPageModel model)
     {
-        model.Result = _addition.Add(model.FirstNumber, model.SecondNumber);
+        _service.AddService(model.Input);
+        _dataService.GetCalculationResult(model);
         return View("Index", model);
     }
 
     [HttpPost]
-    public IActionResult Subtract(CalculationInputModel model)
+    public IActionResult Subtract(CalculationPageModel model)
     {
-        model.Result = _subtraction.Subtract(model.FirstNumber, model.SecondNumber);
-        return View("Index", model);
-    } 
-
-    [HttpPost]
-    public IActionResult Multiply(CalculationInputModel model)
-    {
-        model.Result = _multiplication.Multiply(model.FirstNumber, model.SecondNumber);
+        _service.SubtractService(model.Input);
+        _dataService.GetCalculationResult(model);
         return View("Index", model);
     }
 
     [HttpPost]
-    public IActionResult Divide(CalculationInputModel model)
+    public IActionResult Multiply(CalculationPageModel model)
     {
-        if (model.SecondNumber == 0)
+        _service.MultiplyService(model.Input);
+        _dataService.GetCalculationResult(model);
+        return View("Index", model);
+    }
+
+    [HttpPost]
+    public IActionResult Divide(CalculationPageModel model)
+    {
+        if (model.Input.SecondNumber == 0)
         {
             ModelState.AddModelError("SecondNumber", "Unable to divide by zero.");
         }
         else
         {
-            model.Result = _division.Divide(model.FirstNumber, model.SecondNumber);
+            _service.DivideService(model.Input);
         }
+        _dataService.GetCalculationResult(model);
         return View("Index", model);
     }
 
     public IActionResult Privacy()
+    {
+        return View();
+    }
+
+    public IActionResult CalculationResults()
     {
         return View();
     }
