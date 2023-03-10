@@ -4,20 +4,21 @@ using SimpleCalculator.DataAccess.Data;
 using SimpleCalculator.Web.Models;
 namespace SimpleCalculator.Web.Services;
 
-public class DatabaseService : IDatabaseService<CalculationPageModel>
+public class PagingService : IPagingService<CalculationPageModel>
 {
+    private const int pageSize = 5;
     private readonly IMapper _mapper;
     private readonly CalculatorDbContext _context;
-    public DatabaseService(CalculatorDbContext context, IMapper mapper)
+    public PagingService(CalculatorDbContext context, IMapper mapper)
     {
         _context = context;
         _mapper = mapper;
     }
-    public void GetCalculationResult(CalculationPageModel model)
+    public void GetPagedCalculationResults(CalculationPageModel model)
     {
         var calculationResultQuery = _context.CalculationResultEntities
             .OrderByDescending(calcResult => calcResult.Id)
-            .Take(5)
+            .Take(pageSize)
             .ToList();
         model.Result = _mapper.Map<List<CalculationEntityModel>>(calculationResultQuery);
     }

@@ -25,35 +25,35 @@ public class CalculationService : ICalculationService<CalculationInputModel>
         _multiplication = multiplication;
         _subtraction = subtraction;
     }
-    public double AddService(CalculationInputModel model)
+    public double Add(CalculationInputModel model)
     {
         var result = model.Result = _addition.Add(model.FirstNumber, model.SecondNumber);
-        AddToDbService(model, MathOperatorEnum.Add);
+        AddToDb(model, MathOperatorEnum.Add);
         return result;
     }
 
-    public double DivideService(CalculationInputModel model)
+    public double Divide(CalculationInputModel model)
     {
         var result = model.Result = _division.Divide(model.FirstNumber, model.SecondNumber);
-        AddToDbService(model, MathOperatorEnum.Divide);
+        AddToDb(model, MathOperatorEnum.Divide);
         return result;
     }
 
-    public double MultiplyService(CalculationInputModel model)
+    public double Multiply(CalculationInputModel model)
     {
         var result = model.Result = _multiplication.Multiply(model.FirstNumber, model.SecondNumber);
-        AddToDbService(model, MathOperatorEnum.Multiply);
+        AddToDb(model, MathOperatorEnum.Multiply);
         return result;
     }
 
-    public double SubtractService(CalculationInputModel model)
+    public double Subtract(CalculationInputModel model)
     {
         var result = model.Result = _subtraction.Subtract(model.FirstNumber, model.SecondNumber);
-        AddToDbService(model, MathOperatorEnum.Subtract);
+        AddToDb(model, MathOperatorEnum.Subtract);
         return result;
     }
 
-    public void AddToDbService(CalculationInputModel model, MathOperatorEnum mathOperator)
+    public void AddToDb(CalculationInputModel model, MathOperatorEnum mathOperator)
     {
         var entities = _mapper.Map<CalculationResultEntity>(model);
         entities.MathOperator = mathOperator.ToString();

@@ -6,8 +6,8 @@ namespace SimpleCalculator.Web.Controllers.Api;
 [Route("api/[controller]")]
 public class CalculatorController : ControllerBase
 {
-    private readonly ICalculatorApiService _service;
-    public CalculatorController(ICalculatorApiService service)
+    private readonly IApiControllerService _service;
+    public CalculatorController(IApiControllerService service)
     {
         _service = service;
     }

@@ -10,12 +10,12 @@ namespace SimpleCalculator.Web.Controllers;
 public class HomeController : Controller
 {
     private readonly ICalculationService<CalculationInputModel> _service;
-    private readonly IDatabaseService<CalculationPageModel> _dataService;
+    private readonly IPagingService<CalculationPageModel> _pagingService;
     private readonly CalculatorDbContext _context;
     private readonly IMapper _mapper;
-    public HomeController(ICalculationService<CalculationInputModel> service, IMapper mapper, IDatabaseService<CalculationPageModel> dataService, CalculatorDbContext context)
+    public HomeController(ICalculationService<CalculationInputModel> service, IMapper mapper, IPagingService<CalculationPageModel> pagingService, CalculatorDbContext context)
     {
-        _dataService = dataService;
+        _pagingService = pagingService;
         _service = service;
         _context = context;
         _mapper = mapper;
@@ -23,31 +23,31 @@ public class HomeController : Controller
 
     public IActionResult Index(CalculationPageModel model)
     {
-        _dataService.GetCalculationResult(model);
+        _pagingService.GetPagedCalculationResults(model);
         return View(model);
     }
 
     [HttpPost]
     public IActionResult Add(CalculationPageModel model)
     {
-        _service.AddService(model.Input);
-        _dataService.GetCalculationResult(model);
+        _service.Add(model.Input);
+        _pagingService.GetPagedCalculationResults(model);
         return View("Index", model);
     }
 
     [HttpPost]
     public IActionResult Subtract(CalculationPageModel model)
     {
-        _service.SubtractService(model.Input);
-        _dataService.GetCalculationResult(model);
+        _service.Subtract(model.Input);
+        _pagingService.GetPagedCalculationResults(model);
         return View("Index", model);
     }
 
     [HttpPost]
     public IActionResult Multiply(CalculationPageModel model)
     {
-        _service.MultiplyService(model.Input);
-        _dataService.GetCalculationResult(model);
+        _service.Multiply(model.Input);
+        _pagingService.GetPagedCalculationResults(model);
         return View("Index", model);
     }
 
@@ -60,9 +60,9 @@ public class HomeController : Controller
         }
         else
         {
-            _service.DivideService(model.Input);
+            _service.Divide(model.Input);
         }
-        _dataService.GetCalculationResult(model);
+        _pagingService.GetPagedCalculationResults(model);
         return View("Index", model);
     }
 
