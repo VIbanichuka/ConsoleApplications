@@ -21,7 +21,7 @@ The web application showcases:
 - ASP.NET core MVC
 - ASP.NET core WEB API
 - Using EntityFramework core and Microsoft SQL Server
-- [AutoMapper](https://docs.automapper.org/en/latest/Getting-started.html) as an ORM
+- [AutoMapper](https://docs.automapper.org/en/latest/Getting-started.html) for mapping one object to another.
 - LINQ
 - Client-side requests paging using JavaScript Ajax Call
 - Unit tests for the Services using xUnit and Moq
