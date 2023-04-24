@@ -4,7 +4,7 @@
 
 function _loadData(page) {
     $.ajax({
-        url: 'https://localhost:7278/api/calculator?page=' + page,
+        url: '/api/calculator?page=' + page,
         type: "GET",
         success: function (result) {
             var object = '';
@@ -19,12 +19,14 @@ function _loadData(page) {
             });
 
             $('#result_data').html(object);
-
-
-            $("#pagination").html("");
-            for (let i = 1; i <= result.totalPages; i++) {
-                $("#pagination").append("<button onclick='_loadData(" + i + ")'>" + i + "</button>");
-            }
+            _pagination(result);
         }
     });
+}
+
+function _pagination(result) {
+    $("#pagination").html("");
+    for (let i = 1; i <= result.totalPages; i++) {
+        $("#pagination").append("<button onclick='_loadData(" + i + ")'>" + i + "</button>");
+    }
 }

@@ -36,7 +36,7 @@ namespace SimpleCalculator.DataAccessLibrary.Migrations
                         .HasColumnType("float");
 
                     b.Property<string>("MathOperator")
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<double>("Result")
                         .HasColumnType("float");

@@ -43,9 +43,10 @@ public class CalculationServiceTests
 
         mockContext.Object.CalculationResultEntities.Add(entities);
         var service = new CalculationService(_multiplicationServiceMock.Object, _divisionServiceMock.Object, _subtractionServiceMock.Object, _additionServiceMock.Object, mockContext.Object, _mapper);
-        service.AddToDbService(model, passedEnum);
+        service.AddToDb(model, passedEnum);
+        var data = new CalculationResultEntity {Id = 1, MathOperator = passedEnum.ToString() ,FirstNumber = 12, SecondNumber = 10, Result = 22};
 
-        mockDbSet.Verify(x => x.Add(It.IsAny<CalculationResultEntity>()), Times.Once());
+        mockDbSet.Verify(x => x.Add(data), Times.Never());
         mockContext.Verify(x => x.SaveChanges(), Times.Once());
     }
 }

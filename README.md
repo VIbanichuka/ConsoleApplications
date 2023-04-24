@@ -2,7 +2,13 @@
 
 This SimpleCalculator application features:
 - [**SimpleCalculator.Web**](src/SimpleCalculator.Web/) - An ASP.NET Core web application
-- [**SimpleCalculator.Console**](src/SimpleCalculator.Console/) - An ASP.NET console application
+- [**SimpleCalculator.Console**](src/SimpleCalculator.Console/) - A .NET console application
+
+## Design Pattern 
+- Dependency Injection Design Pattern
+- The MVC (Model-View-Controller) architectural Design Pattern
+
+For information about [MVC pattern](https://learn.microsoft.com/en-us/aspnet/core/mvc/overview?view=aspnetcore-7.0) and [DI pattern](https://dotnettutorials.net/lesson/dependency-injection-design-pattern-csharp/)
 
 The application is separated into 3 layers: 
 - The business logic layer [**Calculations**](src/Calculations/)
@@ -15,6 +21,7 @@ The web application showcases:
 - ASP.NET core MVC
 - ASP.NET core WEB API
 - Using EntityFramework core and Microsoft SQL Server
+- [AutoMapper](https://docs.automapper.org/en/latest/Getting-started.html) for mapping one object to another.
 - LINQ
 - Client-side requests paging using JavaScript Ajax Call
 - Unit tests for the Services using xUnit and Moq

@@ -1,5 +1,6 @@
 using AutoMapper;
 using Moq;
+using SimpleCalculator.Web.Services.Interfaces;
 using SimpleCalculator.Web.Services;
 using SimpleCalculator.Web.AutoMapperConfig;
 using SimpleCalculator.DataAccess.Model;
@@ -18,7 +19,7 @@ public class CalculatorApiServiceTest
     }
 
     [Fact]
-    public void GetCalculatorResponse()
+    public void GetCalculatorResponse_ShouldReturnCorrectResponsesUsingPageNoAndPageSize()
     {
 
         var data = new List<CalculationResultEntity>
@@ -37,7 +38,7 @@ public class CalculatorApiServiceTest
         var mockContext = new Mock<CalculatorDbContext>();
         mockContext.Setup(x => x.CalculationResultEntities).Returns(mockDbSet.Object);
 
-        var service = new CalculatorApiService(mockContext.Object, _mapper);
+        var service = new ApiControllerService(mockContext.Object, _mapper);
         int pageSize = 3;
         int page = 1;
         var totalCount = data.Count();
@@ -49,5 +50,36 @@ public class CalculatorApiServiceTest
         Assert.Equal(page, calculationResults.CurrentPage);
         Assert.Equal(totalCount, calculationResults.TotalCount);
         Assert.Equal(pageCount, calculationResults.TotalPages);
+        Assert.NotNull(calculationResults);
+        Assert.Equal(3, calculationResults.CalcResults.Count);
+    }
+
+    [Fact]
+    public void GetCalculatorResponse_ShouldThrowAnException()
+    {
+        var data = new List<CalculationResultEntity>()
+            .AsQueryable();
+
+        var mockDbSet = new Mock<DbSet<CalculationResultEntity>>();
+        mockDbSet.As<IQueryable<CalculationResultEntity>>().Setup(m => m.Provider).Returns(data.Provider);
+        mockDbSet.As<IQueryable<CalculationResultEntity>>().Setup(m => m.Expression).Returns(data.Expression);
+        mockDbSet.As<IQueryable<CalculationResultEntity>>().Setup(m => m.ElementType).Returns(data.ElementType);
+        mockDbSet.As<IQueryable<CalculationResultEntity>>().Setup(m => m.GetEnumerator()).Returns(() => data.GetEnumerator());
+
+        var mockContext = new Mock<CalculatorDbContext>();
+        mockContext.Setup(x => x.CalculationResultEntities).Returns(mockDbSet.Object);
+
+        var service = new ApiControllerService(mockContext.Object, _mapper);
+        int pageSize = 3;
+        int page = 1;
+        var totalCount = data.Count();
+        var pageCount = totalCount / pageSize;
+        var mockService = new Mock<IApiControllerService>();
+        mockService.Setup(x => x.GetCalculatorResponse(page, pageSize)).Throws<Exception>();
+        
+        var calculatorApiService = new ApiControllerService(mockContext.Object, _mapper);
+        
+        Exception ex = Assert.Throws<Exception>(()=> service.GetCalculatorResponse(page, pageSize));
+        Assert.Equal("Results not found", ex.Message);
     }
 }
