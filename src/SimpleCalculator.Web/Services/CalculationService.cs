@@ -53,7 +53,7 @@ public class CalculationService : ICalculationService<CalculationInputModel>
         return result;
     }
 
-    public void AddToDb(CalculationInputModel model, MathOperatorEnum mathOperator)
+    private void AddToDb(CalculationInputModel model, MathOperatorEnum mathOperator)
     {
         var entities = _mapper.Map<CalculationResultEntity>(model);
         entities.MathOperator = mathOperator.ToString();

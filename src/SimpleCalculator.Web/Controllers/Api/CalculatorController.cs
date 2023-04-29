@@ -6,16 +6,16 @@ namespace SimpleCalculator.Web.Controllers.Api;
 [Route("api/[controller]")]
 public class CalculatorController : ControllerBase
 {
-    private readonly IApiControllerService _service;
-    public CalculatorController(IApiControllerService service)
+    private readonly ICalculationResultsApiService _calculationResultsApiService;
+    public CalculatorController(ICalculationResultsApiService calculationResultsApiService)
     {
-        _service = service;
+        _calculationResultsApiService = calculationResultsApiService;
     }
 
     [HttpGet]
     public IActionResult GetCalculationResults(int page = 1, int pageSize = 10)
     {
-        var response = _service.GetCalculatorResponse(page, pageSize);
+        var response = _calculationResultsApiService.GetCalculationResultsPage(page, pageSize);
         if (response == null)
         {
             return NotFound();
