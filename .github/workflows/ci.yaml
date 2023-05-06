@@ -18,9 +18,9 @@ jobs:
       uses: actions/setup-dotnet@v3
       
     - name: Build
-      run: dotnet build ./SimpleCalculator.sln --configuration Release 
+      run: dotnet build ./src/SimpleCalculator.sln --configuration Release 
     
     - name: Test
-      run: dotnet test TodoApi.sln -c Release --no-build
+      run: dotnet test ./src/SimpleCalculator.sln -c Release --no-build
       
   
