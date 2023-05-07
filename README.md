@@ -1,5 +1,7 @@
 ## A Simple Calculator application with ASP.NET Core
 
+[![CI](https://github.com/VIbanichuka/SimpleCalculator/actions/workflows/ci.yaml/badge.svg)](https://github.com/VIbanichuka/SimpleCalculator/actions/workflows/ci.yaml)
+
 This SimpleCalculator application features:
 - [**SimpleCalculator.Web**](src/SimpleCalculator.Web/) - An ASP.NET Core web application
 - [**SimpleCalculator.Console**](src/SimpleCalculator.Console/) - A .NET console application

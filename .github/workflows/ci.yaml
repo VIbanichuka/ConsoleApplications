@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  workflow_dispatch: 
+  push:
+  pull_request:
+    branches:
+      -main
+
+jobs:
+  CI-build-and-test:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v3
+      
+    - name: Build
+      run: dotnet build ./src/SimpleCalculator.sln --configuration Release 
+    
+    - name: Test
+      run: dotnet test ./src/SimpleCalculator.sln -c Release --no-build
+      
+  
